@@ -10,8 +10,6 @@ from PySide6.QtWidgets import (
 )
 
 # To Do:
-# - Add label when task area is empty, more visually pleasing
-# - Add progress bar for in-progress and cancelled tasks
 # - Add (potentially colour-coded) priorities
 
 class MainWindow(QMainWindow):
@@ -76,7 +74,8 @@ class MainWindow(QMainWindow):
                 id=id,
                 title=task["title"],
                 description=task["description"],
-                location=task["location"]
+                location=task["location"],
+                subtasks=task["subtasks"]
             )
             new_task.locationChangeRequest.connect(self.answer_task_location_change_request)
             new_task.editSubmitRequest.connect(self.answer_edit_submit_request)

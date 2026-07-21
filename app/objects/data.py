@@ -37,13 +37,21 @@ class DataObject(QObject):
             "title": task.title,
             "description": task.description,
             "progress": task.progress,
-            "location": task.location
+            "location": task.location,
+            "subtasks": task.subtasks
         }
-
         self.save_data()
 
     def delete_task(self, id: str):
         del self._data[id]
+        self.save_data()
+
+    def add_or_edit_subtask(self, task_id: str, subtask_id: str, subtask_data: dict):
+        self._data[task_id]["subtasks"][subtask_id] = subtask_data
+        self.save_data()
+
+    def delete_subtask(self, task_id: str, subtask_id: str):
+        del self._data[task_id]["subtasks"][subtask_id]
         self.save_data()
 
     data = Property(dict, load_data, save_data, notify=dataChanged)
